@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Từ Điển & Phiên Dịch Tày - Việt | Thư Tịch Việt Bắc</title>
+    <!-- Tải Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Cormorant Garamond, Playfair Display & Be Vietnam Pro -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Be Vietnam Pro"', 'sans-serif'],
+                        serif: ['"Playfair Display"', '"Cormorant Garamond"', 'serif'],
+                        classic: ['"Cormorant Garamond"', 'serif'],
+                    },
+                    colors: {
+                        doPaper: {
+                            50: '#FAF6EC',
+                            100: '#F5EFE0', // Nền giấy dó chính
+                            200: '#EFE6D0', // Nền giấy bản trầm
+                            300: '#E3D5B7', // Viền giấy cổ
+                            400: '#D1BE97',
+                        },
+                        limWood: {
+                            600: '#6B462C',
+                            700: '#583720',
+                            800: '#4A2E1B', // Nâu gụ gỗ lim chủ đạo
+                            900: '#3A2212', // Nâu trầm sơn ta
+                            950: '#26150A',
+                        },
+                        vermilion: {
+                            600: '#A33025',
+                            700: '#8B261D', // Đỏ son / đỏ gạch truyền thống
+                            800: '#701C15',
+                        },
+                        antiqueGold: {
+                            400: '#C49A52',
+                            500: '#B38840',
+                            600: '#A67C37', // Vàng đồng cổ / nâu vàng đất
+                            700: '#876226',
+                        },
+                        ink: {
+                            900: '#231810', // Đen mực tàu
+                            700: '#5C4938', // Nâu xám trầm
+                            500: '#7D6855',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+      /* Hiệu ứng vân giấy dó mộc mạc */
+        body {
+            background-color: #F5EFE0;
+            background-image: 
+                radial-gradient(rgba(74, 46, 27, 0.045) 1px, transparent 0),
+                radial-gradient(rgba(166, 124, 55, 0.035) 1px, transparent 0);
+            background-size: 28px 28px;
+            background-position: 0 0, 14px 14px;
+            color: #231810;
+        }
+
+        /* Khung viền kép kiểu thư tịch cổ / hoành phi */
+        .ancient-frame {
+            border: 1.5px solid #4A2E1B;
+            box-shadow: 0 4px 14px rgba(58, 34, 18, 0.07);
+            position: relative;
+        }
+        .ancient-frame::after {
+            content: '';
+            position: absolute;
+            inset: 4px;
+            border: 1px solid rgba(166, 124, 55, 0.45);
+            pointer-events: none;
+            border-radius: inherit;
+        }
+
+        /* Nút bấm dạng con dấu (triện) đỏ son cổ điển */
+        .seal-btn {
+            background-color: #8B261D;
+            border: 1.5px solid #631811;
+            box-shadow: inset 0 0 0 1px rgba(245, 239, 224, 0.25), 0 2px 6px rgba(139, 38, 29, 0.28);
+            transition: all 0.2s ease;
+        }
+        .seal-btn:hover {
+            background-color: #701C15;
+            transform: translateY(-1px);
+        }
+        .seal-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Đường diềm hoa văn kỷ hà / trống đồng tối giản */
+        .dongson-divider {
+            height: 10px;
+            background-color: #3A2212;
+            background-image: url("data:image/svg+xml,%3Csvg width='32' height='10' viewBox='0 0 32 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 5 L5 0 L10 5 L5 10 Z M16 5 L21 0 L26 5 L21 10 Z' fill='none' stroke='%23A67C37' stroke-width='1.2'/%3E%3Ccircle cx='13' cy='5' r='1.2' fill='%238B261D'/%3E%3Ccircle cx='29' cy='5' r='1.2' fill='%238B261D'/%3E%3C/svg%3E");
+            background-repeat: repeat-x;
+            background-position: center;
+        }
+
+        /* Thanh cuộn mộc mạc */
+        ::-webkit-scrollbar {
+            width: 7px;
+            height: 7px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #EFE6D0;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #A67C37;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4A2E1B;
+        }
+
+        /* Hiệu ứng sóng âm khi đọc */
+        @keyframes pulse-seal {
+            0% { box-shadow: 0 0 0 0 rgba(139, 38, 29, 0.45); }
+            100% { box-shadow: 0 0 0 9px rgba(139, 38, 29, 0); }
+        }
+        .speaking-active {
+            animation: pulse-seal 1.2s infinite;
+            background-color: #EFE6D0 !important;
+            color: #8B261D !important;
+            border-color: #8B261D !important;
+        }
+    </style>
+</head>
+<body class="font-sans min-h-screen flex flex-col selection:bg-limWood-800 selection:text-doPaper-100">
+  <!-- Đường diềm hoa văn kỷ hà / trống đồng trên cùng -->
+    <div class="dongson-divider w-full border-b border-antiqueGold-600/40"></div>
+
+    <!-- Header Cổ Điển Trang Trọng -->
+    <header class="bg-limWood-900 text-doPaper-100 shadow-md sticky top-0 z-30 border-b-2 border-antiqueGold-600">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3.5 flex flex-col md:flex-row items-center justify-between gap-3">
+            <!-- Biểu trưng & Tên Thư Tịch -->
+            <div class="flex items-center gap-3.5">
+                <!-- Huy hiệu Trống Đồng & Đàn Tính cách điệu -->
+                <div class="w-12 h-12 rounded-lg bg-limWood-800 border-2 border-antiqueGold-600 flex items-center justify-center shadow-inner text-antiqueGold-400 flex-shrink-0">
+                    <svg class="w-8 h-8" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <!-- Mặt trời trống đồng 8 tia tối giản -->
+                        <circle cx="16" cy="16" r="13" stroke-dasharray="2 2" />
+                        <circle cx="16" cy="16" r="9.5" />
+                        <circle cx="16" cy="16" r="3" fill="#8B261D" stroke="#C49A52" />
+                        <path d="M16 3v3.5M16 25.5V29M3 16h3.5M25.5 16H29M6.8 6.8l2.5 2.5M22.7 22.7l2.5 2.5M25.2 6.8l-2.5 2.5M9.3 22.7l-2.5 2.5" stroke-linecap="round" />
+                    </svg>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <h1 class="font-serif text-xl sm:text-2xl font-bold tracking-wide text-doPaper-50">
+                            Từ Điển & Phiên Dịch Tày - Việt
+                        </h1>
+                        <!-- Con dấu triện nhỏ -->
+                        <span class="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-serif font-bold tracking-widest uppercase bg-vermilion-700 text-doPaper-50 border border-antiqueGold-400/60 rounded-xs">
+                            Việt Bắc
+                        </span>
+                    </div>
+                    <p class="text-xs text-doPaper-300 font-normal italic">Gìn giữ tiếng nói mộc mạc, hồn cốt văn hóa ngàn đời của dân tộc Việt Nam</p>
+                </div>
+            </div>
+
+            <!-- Thanh Điều Hướng Mộc Mạc -->
+            <nav class="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm">
+                <button onclick="scrollToId('translator-section')" class="px-3 py-2 rounded-md bg-limWood-800 hover:bg-limWood-700 text-doPaper-50 border border-antiqueGold-600/40 font-medium transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-feather-pointed text-antiqueGold-400"></i>
+                    <span>Phiên dịch</span>
+                </button>
+                <button onclick="scrollToId('dictionary-section')" class="px-3 py-2 rounded-md hover:bg-limWood-800 text-doPaper-200 font-medium transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-book-open text-antiqueGold-400"></i>
+                    <span>Sổ tay dân gian</span>
+                </button>
+                <button onclick="openDrawer('saved')" class="px-3 py-2 rounded-md hover:bg-limWood-800 text-doPaper-200 font-medium transition flex items-center gap-1.5 relative">
+                    <i class="fa-solid fa-bookmark text-vermilion-600"></i>
+                    <span class="hidden sm:inline">Đã lưu</span>
+                    <span id="saved-badge" class="bg-vermilion-700 text-doPaper-50 text-[10px] font-bold px-1.5 py-0.5 rounded-sm border border-antiqueGold-400/40">0</span>
+                </button>
+                <button onclick="openDrawer('history')" class="px-3 py-2 rounded-md hover:bg-limWood-800 text-doPaper-200 font-medium transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-scroll text-antiqueGold-400"></i>
+                    <span class="hidden sm:inline">Lịch sử</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+    <!-- Thông báo nổi (Toast) kiểu thẻ giấy cổ -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- Nội Dung Chính -->
+    <main class="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-9">
+
+        <!-- PHẦN 1: KHUNG DỊCH HAI CHIỀU TIẾNG TÀY <-> TIẾNG VIỆT -->
+        <section id="translator-section" class="space-y-4">
+            <!-- Thanh điều khiển chiều dịch, phương ngữ & mẫu câu thử nhanh -->
+            <div class="bg-doPaper-200/90 rounded-lg p-3.5 border border-limWood-800/30 shadow-xs flex flex-col lg:flex-row items-center justify-between gap-3.5">
+                <!-- Chọn chiều dịch & Nút hoán đổi -->
+                <div class="flex items-center justify-between sm:justify-center gap-2 w-full lg:w-auto bg-doPaper-100 p-1 rounded-md border border-limWood-800/25">
+                    <button id="btn-dir-tay-vi" onclick="setDirection('tay-vi')" class="flex-1 sm:flex-initial px-4 py-2 rounded-sm text-xs sm:text-sm font-semibold transition flex items-center justify-center gap-2 bg-limWood-800 text-doPaper-50 shadow-2xs">
+                        <span>Tiếng Tày</span>
+                        <i class="fa-solid fa-arrow-right-long text-antiqueGold-400"></i>
+                        <span>Tiếng Việt</span>
+                    </button>
+
+                    <button onclick="swapDirection()" title="Hoán đổi chiều dịch" class="px-3 py-2 rounded-sm bg-doPaper-50 hover:bg-vermilion-700 text-limWood-900 hover:text-doPaper-50 border border-limWood-800/30 transition transform active:rotate-180">
+                        <i class="fa-solid fa-right-left text-xs"></i>
+                    </button>
+
+                    <button id="btn-dir-vi-tay" onclick="setDirection('vi-tay')" class="flex-1 sm:flex-initial px-4 py-2 rounded-sm text-xs sm:text-sm font-semibold transition flex items-center justify-center gap-2 text-ink-700 hover:bg-doPaper-50">
+                        <span>Tiếng Việt</span>
+                        <i class="fa-solid fa-arrow-right-long text-antiqueGold-600"></i>
+                        <span>Tiếng Tày</span>
+                    </button>
+                </div>
+
+                <!-- Tùy chọn Phương ngữ vùng miền -->
+                <div class="flex items-center gap-2 w-full lg:w-auto justify-between sm:justify-end">
+                    <label for="dialect-select" class="text-xs font-semibold text-limWood-900 whitespace-nowrap flex items-center gap-1.5">
+                        <i class="fa-solid fa-compass text-vermilion-700"></i>
+                        <span>Phương ngữ vùng miền:</span>
+                    </label>
+                    <select id="dialect-select" class="w-full sm:w-auto bg-doPaper-50 border border-limWood-800/40 text-ink-900 text-xs sm:text-sm font-medium rounded-md px-3 py-1.5 focus:outline-none focus:border-limWood-800">
+                      <option value="common">Phổ thông (Chung Việt Bắc)</option>
+                        <option value="caobang">Cao Bằng (Hòa An, Trùng Khánh)</option>
+                        <option value="langson">Lạng Sơn (Văn Quan, Bình Gia)</option>
+                        <option value="backan_thainguyen">Bắc Kạn - Thái Nguyên</option>
+                        <option value="tuyenquang_hagiang">Tuyên Quang - Hà Giang</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Thanh Mẫu câu thử nhanh -->
+            <div class="flex flex-wrap items-center gap-2 text-xs px-1">
+                <span class="font-semibold text-ink-700 flex items-center gap-1.5">
+                    <i class="fa-solid fa-leaf text-antiqueGold-600"></i>
+                    <span>Mẫu câu thử nhanh:</span>
+                </span>
+                <button onclick="tryQuickSample('Pây tàng slửa')" class="px-2.5 py-1 rounded-sm bg-doPaper-50 hover:bg-limWood-800 text-limWood-900 hover:text-doPaper-50 border border-limWood-800/25 transition font-medium">
+                    "Pây tàng slửa"
+                </button>
+                <button onclick="tryQuickSample('Kin khẩu dã?')" class="px-2.5 py-1 rounded-sm bg-doPaper-50 hover:bg-limWood-800 text-limWood-900 hover:text-doPaper-50 border border-limWood-800/25 transition font-medium">
+                    "Kin khẩu dã?"
+                </button>
+                <button onclick="tryQuickSample('Mừng nỏ khỏe bấu?')" class="px-2.5 py-1 rounded-sm bg-doPaper-50 hover:bg-limWood-800 text-limWood-900 hover:text-doPaper-50 border border-limWood-800/25 transition font-medium">
+                    "Mừng nỏ khỏe bấu?"
+                </button>
+                <button onclick="tryQuickSample('Slương noọng lai')" class="px-2.5 py-1 rounded-sm bg-doPaper-50 hover:bg-limWood-800 text-limWood-900 hover:text-doPaper-50 border border-limWood-800/25 transition font-medium">
+                    "Slương noọng lai"
+                </button>
+            </div>
+            <!-- Hai trang sách giấy dó đối xứng: Nguồn & Đích -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                <!-- Trang Trái: Văn Bản Nguồn -->
+                <div class="bg-doPaper-50 rounded-lg ancient-frame flex flex-col overflow-hidden">
+                    <!-- Tiêu đề trang nguồn -->
+                    <div class="bg-doPaper-200/80 px-5 py-3 border-b border-limWood-800/20 flex items-center justify-between">
+                        <div class="flex items-center gap-2.5">
+                            <span id="source-seal" class="px-2.5 py-0.5 rounded-xs text-xs font-serif font-bold tracking-wider uppercase bg-limWood-800 text-doPaper-50 border border-antiqueGold-500/50">
+                                TIẾNG TÀY
+                            </span>
+                            <span id="source-sub" class="text-xs text-ink-700 italic hidden sm:inline">Văn bản gốc cần chuyển ngữ</span>
+                        </div>
+                        <div class="flex items-center gap-1.5 z-10">
+                            <button onclick="pasteClipboard()" class="px-2.5 py-1 text-xs font-medium text-limWood-800 hover:bg-doPaper-100 rounded-sm border border-limWood-800/20 transition flex items-center gap-1" title="Dán văn bản">
+                                <i class="fa-regular fa-paste"></i>
+                                <span>Dán</span>
+                            </button>
+                            <button onclick="clearInput()" class="px-2.5 py-1 text-xs font-medium text-ink-700 hover:text-vermilion-700 hover:bg-doPaper-100 rounded-sm border border-transparent hover:border-vermilion-700/30 transition flex items-center gap-1" title="Xóa nhanh">
+                                <i class="fa-solid fa-eraser"></i>
+                                <span>Xóa</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Ô nhập nội dung -->
+                    <div class="p-5 flex-grow flex flex-col z-10">
+                        <textarea id="source-input" rows="5" placeholder="Nhập câu hoặc từ tiếng Tày tại đây... (Ví dụ: Pỉ nọng slưn đảy bấu? Khẩu ma lườn kin nặm!)" class="w-full flex-grow resize-none border-0 focus:ring-0 focus:outline-none text-ink-900 placeholder-ink-500/50 text-base sm:text-lg leading-relaxed bg-transparent"></textarea>
+                    </div>
+
+                    <!-- Thanh công cụ chèn nhanh ký tự/âm vần đặc trưng tiếng Tày -->
+                    <div class="px-5 py-2.5 bg-doPaper-100/90 border-t border-limWood-800/15 z-10">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <span class="text-[11px] font-semibold text-ink-700 flex items-center gap-1.5">
+                                <i class="fa-solid fa-pen-nib text-antiqueGold-600"></i>
+                                <span>Chèn nhanh âm vần chữ Tày:</span>
+                            </span>
+                            <button onclick="toggleKeyboardCase()" class="text-[11px] font-semibold px-2 py-0.5 rounded-xs bg-doPaper-200 hover:bg-limWood-800 text-limWood-900 hover:text-doPaper-50 border border-limWood-800/25 transition">
+                                thường / HOA
+                            </button>
+                        </div>
+                        <div id="tay-char-bar" class="flex flex-wrap gap-1.5">
+                            <!-- Render các nút ký tự bằng JS -->
+                        </div>
+                    </div>
+
+                    <!-- Chân trang nguồn: Nghe đọc, Đếm ký tự & Nút Con Dấu Dịch -->
+                    <div class="px-5 py-3 bg-doPaper-200/60 border-t border-limWood-800/20 flex items-center justify-between gap-2 z-10">
+                        <div class="flex items-center gap-2.5">
+                            <button onclick="speakSource(this)" class="px-3 py-2 rounded-md bg-doPaper-50 hover:bg-doPaper-200 text-limWood-900 border border-limWood-800/30 transition flex items-center gap-1.5 text-xs font-semibold" title="Nghe đọc văn bản nguồn">
+                                <i class="fa-solid fa-volume-high text-vermilion-700"></i>
+                                <span class="hidden sm:inline">Nghe đọc</span>
+                            </button>
+                            <span id="char-count" class="text-xs text-ink-700 font-medium">0 / 1000</span>
+                        </div>
+
+                        <button id="btn-translate" onclick="executeTranslate()" class="seal-btn px-5 py-2.5 rounded-md text-doPaper-50 font-serif font-bold text-sm sm:text-base tracking-wide flex items-center gap-2 cursor-pointer">
+                            <span>Dịch & Giải Nghĩa</span>
+                            <i class="fa-solid fa-stamp text-antiqueGold-400 text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Trang Phải: Kết Quả Phiên Dịch -->
+                <div class="bg-doPaper-50 rounded-lg ancient-frame flex flex-col overflow-hidden">
+                    <!-- Tiêu đề trang đích -->
+                    <div class="bg-doPaper-200/80 px-5 py-3 border-b border-limWood-800/20 flex items-center justify-between">
+                        <div class="flex items-center gap-2.5">
+                            <span id="target-seal" class="px-2.5 py-0.5 rounded-xs text-xs font-serif font-bold tracking-wider uppercase bg-vermilion-700 text-doPaper-50 border border-antiqueGold-400/50">
+                                TIẾNG VIỆT
+                            </span>
+                            <span class="text-xs text-ink-700 italic hidden sm:inline">Nghĩa chuẩn & sắc thái bản địa</span>
+                        </div>
+                        <div class="flex items-center gap-1 z-10">
+                            <button id="btn-save-fav" onclick="toggleSaveFavorite()" class="px-2.5 py-1 rounded-sm text-xs font-semibold text-limWood-800 hover:bg-doPaper-100 border border-limWood-800/20 transition flex items-center gap-1.5" title="Lưu câu này vào Sổ tay yêu thích">
+                                <i class="fa-regular fa-bookmark text-vermilion-700"></i>
+                                <span>Lưu sổ tay</span>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Nội dung bản dịch chính -->
+                    <div class="p-5 flex-grow flex flex-col justify-between z-10">
+                        <div id="target-output" class="text-ink-900 text-lg sm:text-xl font-semibold leading-relaxed min-h-[7.5rem] whitespace-pre-wrap">
+                            <span class="text-ink-500/60 font-normal italic text-sm sm:text-base">Bản dịch chuẩn nghĩa sẽ hiện lên trang giấy này...</span>
+                        </div>
+
+                        <!-- Khung hướng dẫn phát âm gần đúng -->
+                        <div id="pronunciation-box" class="hidden mt-4 p-3 rounded-md bg-doPaper-200/75 border-l-4 border-antiqueGold-600 flex items-start gap-2.5">
+                            <i class="fa-solid fa-ear-listen text-limWood-800 mt-0.5"></i>
+                            <div class="text-xs sm:text-sm">
+                                <span class="font-bold text-limWood-900">Hướng dẫn phát âm tiếng Tày: </span>
+                                <span id="pronunciation-text" class="text-ink-900 italic font-medium"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chân trang đích: Nghe đọc & Sao chép -->
+                    <div class="px-5 py-3 bg-doPaper-200/60 border-t border-limWood-800/20 flex items-center justify-between gap-2 z-10">
+                        <button onclick="speakTarget(this)" class="px-3.5 py-2 rounded-md bg-doPaper-50 hover:bg-doPaper-200 text-limWood-900 border border-limWood-800/30 transition flex items-center gap-2 text-xs sm:text-sm font-semibold">
+                            <i class="fa-solid fa-volume-high text-vermilion-700"></i>
+                            <span id="speak-target-text">Nghe đọc tiếng Việt</span>
+                        </button>
+
+                        <button onclick="copyResult()" class="px-4 py-2 rounded-md bg-limWood-800 hover:bg-limWood-900 text-doPaper-50 border border-antiqueGold-500/40 transition flex items-center gap-1.5 text-xs sm:text-sm font-semibold">
+                            <i class="fa-regular fa-copy text-antiqueGold-400"></i>
+                            <span>Sao chép kết quả</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KHỐI GIẢI NGHĨA TỪ VỰNG & GHI CHÚ VĂN HÓA (Hiển thị sau khi dịch) -->
+            <div id="analysis-card" class="hidden bg-doPaper-50 rounded-lg ancient-frame overflow-hidden transition-all">
+                <div class="bg-limWood-900 text-doPaper-50 px-5 py-3 border-b border-antiqueGold-600 flex items-center justify-between">
+                    <div class="flex items-center gap-2.5">
+                        <i class="fa-solid fa-scroll text-antiqueGold-400"></i>
+                        <h3 class="font-serif font-bold text-base sm:text-lg tracking-wide">Bảng Bóc Tách Từ Vựng & Chú Giải Văn Hóa Bản Làng</h3>
+                    </div>
+                    <span class="text-[11px] font-serif italic text-doPaper-300 hidden sm:inline">Thư tịch chú giải</span>
+                </div>
+
+                <div class="p-5 grid grid-cols-1 lg:grid-cols-12 gap-6 z-10 relative">
+                    <!-- Bảng bóc tách từ vựng chi tiết (7 cột) -->
+                    <div class="lg:col-span-7 space-y-3">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-limWood-800 flex items-center gap-1.5 border-b border-limWood-800/15 pb-1.5">
+                            <i class="fa-solid fa-list-ul text-vermilion-700"></i>
+                            <span>Chi tiết từng từ / cụm từ tiếng Tày</span>
+                        </h4>
+                        <div class="overflow-x-auto rounded-md border border-limWood-800/25 bg-doPaper-100/50">
+                            <table class="w-full text-left border-collapse text-xs sm:text-sm">
+                                <thead>
+                                    <tr class="bg-doPaper-200 text-limWood-900 border-b border-limWood-800/25 font-serif">
+                                        <th class="py-2 px-3 font-bold">Từ tiếng Tày</th>
+                                        <th class="py-2 px-3 font-bold">Từ loại</th>
+                                        <th class="py-2 px-3 font-bold">Nghĩa tiếng Việt</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="vocab-table-body" class="divide-y divide-limWood-800/15 text-ink-900">
+                                    <!-- Render các hàng từ vựng -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- Ghi chú văn hóa & sắc thái giao tiếp (5 cột) -->
+                    <div class="lg:col-span-5 bg-doPaper-200/70 rounded-md p-4 border border-limWood-800/25 flex flex-col justify-between space-y-3">
+                        <div>
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-vermilion-700 flex items-center gap-1.5 mb-2">
+                                <i class="fa-solid fa-torii-gate"></i>
+                                <span>Sắc thái giao tiếp & Văn hóa Tày</span>
+                            </h4>
+                            <p id="cultural-note-content" class="text-sm text-ink-900 leading-relaxed"></p>
+                        </div>
+                        <div class="text-[11px] text-ink-700 italic pt-2.5 border-t border-limWood-800/15 flex items-start gap-1.5">
+                            <i class="fa-solid fa-feather text-antiqueGold-600 mt-0.5"></i>
+                            <span>Lời quê mộc mạc: Người Tày trọng lễ nghĩa, cách xưng hô luôn gắn liền với vai vế họ hàng, bản mường.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Đường phân cách hoa văn trống đồng giữa các phần -->
+        <div class="flex items-center justify-center gap-4 py-1">
+            <div class="h-px bg-limWood-800/25 flex-grow"></div>
+            <span class="text-antiqueGold-600 text-sm tracking-[0.3em]">❖ ❖ ❖</span>
+            <div class="h-px bg-limWood-800/25 flex-grow"></div>
+        </div>
+
+        <!-- PHẦN 2: KHO TỪ VỰNG & SỔ TAY GIAO TIẾP DÂN GIAN -->
+        <section id="dictionary-section" class="space-y-5">
+            <div class="bg-doPaper-50 rounded-lg ancient-frame p-5 sm:p-6 space-y-5">
+                <!-- Tiêu đề & Thanh tìm kiếm nhanh -->
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-limWood-800/20 pb-4 relative z-10">
+                    <div>
+                        <div class="flex items-center gap-2 text-vermilion-700 text-xs font-bold uppercase tracking-wider mb-1">
+                            <i class="fa-solid fa-book-bookmark"></i>
+                            <span>Sổ tay văn hóa bản địa</span>
+                        </div>
+                        <h2 class="font-serif text-2xl sm:text-3xl font-bold text-limWood-900">Kho Từ Vựng & Giao Tiếp Dân Gian Tày - Việt</h2>
+                        <p class="text-xs sm:text-sm text-ink-700 mt-1">Chạm vào từng thẻ câu để nghe phát âm hoặc đưa trực tiếp lên trang dịch phân tích ngữ nghĩa.</p>
+                    </div>
+
+                    <!-- Ô tìm kiếm nhanh -->
+                    <div class="relative w-full md:w-80">
+                      <input type="text" id="dict-search" onkeyup="filterDictionary()" placeholder="Tra từ tiếng Tày hoặc nghĩa Việt..." class="w-full pl-9 pr-8 py-2 bg-doPaper-100 border border-limWood-800/35 rounded-md text-sm text-ink-900 placeholder-ink-500/70 focus:outline-none focus:border-limWood-800 focus:bg-doPaper-50">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-limWood-700 text-xs"></i>
+                        <button id="btn-clear-search" onclick="resetDictSearch()" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-ink-500 hover:text-vermilion-700">
+                            <i class="fa-solid fa-xmark text-sm"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Các Thẻ Chủ Đề -->
+                <div id="topic-tabs" class="flex items-center gap-2 overflow-x-auto pb-1.5 relative z-10">
+                    <!-- Render bằng JS -->
+                </div>
+
+                <!-- Lưới các thẻ câu giao tiếp mẫu mực -->
+                <div id="dictionary-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 relative z-10">
+                    <!-- Render bằng JS -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+    <!-- NGĂN KÉO SỔ TAY ĐÃ LƯU & LỊCH SỬ TRA CỨU -->
+    <div id="drawer-backdrop" onclick="closeDrawer()" class="fixed inset-0 bg-limWood-950/60 backdrop-blur-2xs z-40 hidden transition-opacity"></div>
+    <aside id="side-drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-doPaper-100 shadow-2xl z-50 transform translate-x-full transition-transform duration-300 flex flex-col border-l-2 border-limWood-800">
+        <!-- Header Ngăn Kéo -->
+        <div class="bg-limWood-900 text-doPaper-50 px-5 py-4 border-b border-antiqueGold-600 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <button id="tab-saved" onclick="switchDrawerTab('saved')" class="px-3 py-1.5 rounded-sm text-xs sm:text-sm font-serif font-bold bg-vermilion-700 text-doPaper-50 border border-antiqueGold-400/50 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-bookmark"></i>
+                    <span>Sổ tay đã lưu (<span id="drawer-saved-count">0</span>)</span>
+                </button>
+                <button id="tab-history" onclick="switchDrawerTab('history')" class="px-3 py-1.5 rounded-sm text-xs sm:text-sm font-serif font-bold text-doPaper-300 hover:bg-limWood-800 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    <span>Lịch sử (<span id="drawer-history-count">0</span>)</span>
+                </button>
+            </div>
+            <button onclick="closeDrawer()" class="p-1.5 text-doPaper-300 hover:text-doPaper-50 rounded-md">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+
+        <!-- Thanh phụ -->
+        <div class="px-5 py-2.5 bg-doPaper-200 border-b border-limWood-800/20 flex items-center justify-between text-xs text-ink-700">
+            <span id="drawer-desc">Các câu giao tiếp bạn đã lưu để ôn tập</span>
+            <button onclick="clearActiveDrawerList()" class="text-vermilion-700 hover:underline font-semibold">
+                Xóa tất cả
+            </button>
+        </div>
+
+        <!-- Danh sách thẻ -->
+        <div id="drawer-content" class="p-4 flex-grow overflow-y-auto space-y-3">
+            <!-- Render bằng JS -->
+        </div>
+    </aside>
+
+    <!-- Footer Cổ Điển -->
+    <footer class="bg-limWood-900 text-doPaper-300 mt-12 border-t-2 border-antiqueGold-600">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+            <div class="flex items-center gap-2.5">
+                <span class="font-serif font-bold text-doPaper-50 text-base">Từ Điển & Phiên Dịch Tày - Việt</span>
+                <span class="text-antiqueGold-500">❖</span>
+                <span class="italic">Thư tịch văn hóa Việt Bắc</span>
+            </div>
+            <p class="text-doPaper-300/80 text-center sm:text-right">
+              Trân trọng & gìn giữ tiếng nói truyền thống của đồng bào Tày trong đại gia đình các dân tộc Việt Nam
+            </p>
+        </div>
+        <div class="dongson-divider w-full"></div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // =========================================================================
+        // 1. CẤU HÌNH API & TRẠNG THÁI ỨNG DỤNG
+        // =========================================================================
+        const apiKey = ""; // Canvas runtime tự động cung cấp khóa API
+        const GEMINI_MODEL = "gemini-3-flash-preview";
+
+        let direction = 'tay-vi'; // 'tay-vi' hoặc 'vi-tay'
+        let isUpperCase = false;
+        let currentTopic = 'all';
+        let activeDrawerTab = 'saved';
+        let currentResultRecord = null;
+
+        // Dữ liệu lưu trữ cục bộ
+        let savedItems = JSON.parse(localStorage.getItem('tay_viet_classic_saved') || '[]');
+        let historyItems = JSON.parse(localStorage.getItem('tay_viet_classic_history') || '[]');
+
+        // Bộ âm vần & ký tự đặc trưng tiếng Tày
+        const tayCharacters = [
+            'ă', 'â', 'ê', 'ô', 'ơ', 'ư', 'đ',
+            'sl', 'kh', 'ph', 'th', 'nh', 'ng', 'eng', 'oong', 'au', 'âư'
+        ];
+      // 6 Chủ đề Kho từ vựng & Sổ tay giao tiếp dân gian
+        const topics = [
+            { id: 'all', name: 'Tất cả chủ đề', icon: 'fa-layer-group' },
+            { id: 'greeting', name: 'Chào hỏi & Lễ nghĩa', icon: 'fa-hands-clapping' },
+            { id: 'family', name: 'Gia đình & Bản làng', icon: 'fa-house-chimney' },
+            { id: 'market', name: 'Chợ phiên & Mua bán', icon: 'fa-basket-shopping' },
+            { id: 'food', name: 'Ẩm thực truyền thống', icon: 'fa-bowl-rice' },
+            { id: 'direction', name: 'Hỏi đường', icon: 'fa-signs-post' },
+            { id: 'festival', name: 'Lễ hội Lồng Tồng & Hát Then', icon: 'fa-music' }
+        ];
+
+        // Dữ liệu Kho từ vựng & Sổ tay giao tiếp mẫu mực
+        const folkDictionary = [
+            // Chào hỏi & Lễ nghĩa
+            {
+                id: 'c1', topic: 'greeting',
+                tay: 'Pỉ nọng slưn đảy bấu?',
+                phonetic: 'Pỉ noọng slưn đảy bấu?',
+                vi: 'Anh chị em có khỏe không?',
+                pos: 'Câu chào hỏi',
+                note: '"Pỉ nọng" là anh em, bà con họ hàng. Lời thăm hỏi ân cần thể hiện tình cảm gắn bó keo sơn của người Tày.'
+            },
+            {
+                id: 'c2', topic: 'greeting',
+                tay: 'Pây tàng slửa!',
+                phonetic: 'Pây tàng slửa!',
+                vi: 'Đi đường bình an / Đi đâu đấy!',
+                pos: 'Lời chào đường',
+                note: 'Câu chào mộc mạc cửa miệng khi gặp người quen trên đường bản, vừa hỏi thăm vừa chúc thượng lộ bình an.'
+            },
+            {
+                id: 'c3', topic: 'greeting',
+                tay: 'Khẩu ma lườn kin nặm!',
+                phonetic: 'Khẩu ma lườn kin nặm!',
+                vi: 'Mời vào nhà sàn uống nước!',
+                pos: 'Lời mời khách',
+                note: 'Hiếu khách là nếp nhà truyền thống của đồng bào Tày; khách đi qua cổng luôn được mời lên sàn uống bát nước chè xanh.'
+            },
+            {
+                id: 'c4', topic: 'greeting',
+                tay: 'Cảm ơn pỉ lai lai!',
+                phonetic: 'Cảm ơn pỉ lai lai!',
+                vi: 'Cảm ơn anh/chị rất nhiều!',
+                pos: 'Lời cảm tạ',
+                note: '"Lai lai" nghĩa là rất nhiều, biểu thị tấm lòng trân trọng chân thành.'
+            },
+
+            // Gia đình & Bản làng
+            {
+                id: 'g1', topic: 'family',
+                tay: 'Pỏ / Mẻ / Pú / Dả',
+                phonetic: 'Pỏ / Mẻ / Pú / Dả',
+                vi: 'Bố / Mẹ / Ông nội / Bà nội',
+                pos: 'Danh từ xưng hô',
+              note: 'Cách gọi đấng sinh thành và bậc cao niên trong nếp nhà truyền thống người Tày.'
+            },
+            {
+                id: 'g2', topic: 'family',
+                tay: 'Slương noọng lai',
+                phonetic: 'Slương noọng lai',
+                vi: 'Thương em nhiều lắm',
+                pos: 'Câu biểu cảm',
+                note: '"Slương" (hoặc "hặc") nghĩa là yêu thương, quý mến; "noọng" là em.'
+            },
+            {
+                id: 'g3', topic: 'family',
+                tay: 'Lườn slàn bản Tày',
+                phonetic: 'Lườn slàn bản Tày',
+                vi: 'Nhà sàn bản người Tày',
+                pos: 'Cụm danh từ',
+                note: 'Ngôi nhà sàn mái ngói âm dương tựa lưng vào núi, nhìn ra cánh đồng là không gian sinh hoạt thiêng liêng của gia đình.'
+            },
+
+            // Chợ phiên & Mua bán
+            {
+                id: 'm1', topic: 'market',
+                tay: 'Pây háng / Pây chợ phiên',
+                phonetic: 'Pây háng / Pây chợ phiên',
+                vi: 'Đi chợ phiên vùng cao',
+                pos: 'Động từ',
+                note: '"Háng" nghĩa là chợ. Chợ phiên không chỉ để trao đổi sản vật mà còn là ngày hội gặp gỡ của trai gái bản mường.'
+            },
+            {
+                id: 'm2', topic: 'market',
+                tay: 'Cái nẩy ký lai tiền?',
+                phonetic: 'Cái nẩy ký lai tiền?',
+                vi: 'Món này bao nhiêu tiền?',
+                pos: 'Câu hỏi giá',
+                note: '"Ký lai" dùng để hỏi số lượng hoặc giá cả.'
+            },
+            {
+                id: 'm3', topic: 'market',
+                tay: 'Pẻng lai, bớt nọi nơ!',
+                phonetic: 'Pẻng lai, bớt nọi nơ!',
+                vi: 'Đắt quá, bớt một chút nhé!',
+                pos: 'Giao tiếp chợ phiên',
+                note: '"Pẻng" là đắt (trái nghĩa với "thúc" là rẻ), "nọi" là một chút.'
+            },
+          // Ẩm thực truyền thống
+            {
+                id: 'f1', topic: 'food',
+                tay: 'Kin khẩu dã?',
+                phonetic: 'Kin khẩu dã?',
+                vi: 'Đã ăn cơm chưa?',
+                pos: 'Câu hỏi thăm',
+                note: '"Kin khẩu" là ăn cơm, "dã" (hoặc "chắng") là chưa. Lời hỏi thăm bình dị mỗi khi đến bữa.'
+            },
+            {
+                id: 'f2', topic: 'food',
+                tay: 'Khẩu nua đăm đeng',
+                phonetic: 'Khẩu nua đăm đeng',
+                vi: 'Xôi ngũ sắc truyền thống',
+                pos: 'Ẩm thực cổ truyền',
+                note: 'Món xôi nhuộm từ lá cẩm, nghệ, gấc rừng tượng trưng cho ngũ hành và ước vọng ấm no.'
+            },
+            {
+                id: 'f3', topic: 'food',
+                tay: 'Pẻng chưng đăm',
+                phonetic: 'Pẻng chưng đăm',
+                vi: 'Bánh chưng đen',
+                pos: 'Ẩm thực cổ truyền',
+                note: 'Bánh chưng gói lá dong, gạo nếp trộn tro than cây núc nác hoặc rơm nếp tạo màu đen nhánh, vị thanh tao.'
+            },
+
+            // Hỏi đường
+            {
+                id: 'd1', topic: 'direction',
+                tay: 'Tàng pây bản lăng?',
+                phonetic: 'Tàng pây bản lăng?',
+                vi: 'Đường đi tới bản nào đây?',
+                pos: 'Câu hỏi đường',
+                note: '"Tàng" là con đường, "bản" là làng xóm.'
+            },
+            {
+                id: 'd2', topic: 'direction',
+                tay: 'Lẹo slái / Lẹo khua',
+                phonetic: 'Lẹo slái / Lẹo khua',
+                vi: 'Rẽ bên trái / Rẽ bên phải',
+                pos: 'Chỉ phương hướng',
+                note: '"Slái" là trái, "khua" là phải.'
+            },
+            {
+                id: 'd3', topic: 'direction',
+                tay: 'Dú quây bấu?',
+                phonetic: 'Dú quây bấu?',
+                vi: 'Có ở xa không?',
+                pos: 'Câu hỏi khoảng cách',
+                note: '"Quây" nghĩa là xa, đối lập với "chảu" nghĩa là gần.'
+            },
+
+            // Lễ hội Lồng Tồng & Hát Then
+            {
+                id: 'l1', topic: 'festival',
+                tay: 'Pây hội Lồng Tồng',
+                phonetic: 'Pây hội Lồng Tồng',
+                vi: 'Đi trẩy hội Xuống Đồng (Lồng Tồng)',
+                pos: 'Văn hóa lễ hội',
+                note: 'Lễ hội lớn nhất đầu xuân của người Tày cầu thần Nông phù hộ mưa thuận gió hòa, mùa màng bội thu.'
+            },
+            {
+                id: 'l2', topic: 'festival',
+                tay: 'Hát Then đàn Tính',
+                phonetic: 'Hát Then đàn Tính',
+              vi: 'Hát Then đàn Tính (Tính tẩu)',
+                pos: 'Di sản văn hóa',
+                note: 'Loại hình diễn xướng dân gian thiêng liêng, tiếng đàn Tính ngân vang như lời tâm tình gửi tới đất trời.'
+            },
+            {
+                id: 'l3', topic: 'festival',
+                tay: 'Chúc pỉ nọng pi mấư slưn đảy, mảu khàu!',
+                phonetic: 'Chúc pỉ noọng pi mấư slưn đảy, mảu khàu!',
+                vi: 'Chúc bà con năm mới mạnh khỏe, thóc lúa đầy bồ!',
+                pos: 'Lời chúc đầu xuân',
+                note: '"Pi mấư" là năm mới, "mảu khàu" là được mùa thóc lúa.'
+            }
+        ];
+      // =========================================================================
+        // 2. KHỞI TẠO GIAO DIỆN KHI TẢI TRANG
+        // =========================================================================
+        window.addEventListener('DOMContentLoaded', () => {
+            renderCharBar();
+            renderTopicTabs();
+            renderDictionary();
+            updateBadges();
+
+            const sourceInput = document.getElementById('source-input');
+            sourceInput.addEventListener('input', () => {
+                if (sourceInput.value.length > 1000) {
+                    sourceInput.value = sourceInput.value.substring(0, 1000);
+                }
+                document.getElementById('char-count').innerText = `${sourceInput.value.length} / 1000`;
+            });
+
+            // Phím tắt Ctrl+Enter hoặc Cmd+Enter để dịch nhanh
+            sourceInput.addEventListener('keydown', (e) => {
+                if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                    executeTranslate();
+                }
+            });
+        });
+
+        // =========================================================================
+        // 3. QUẢN LÝ CHIỀU DỊCH, MẪU CÂU THỬ NHANH & BÀN PHÍM CHỮ TÀY
+        // =========================================================================
+        function setDirection(dir) {
+            direction = dir;
+            const btnTayVi = document.getElementById('btn-dir-tay-vi');
+            const btnViTay = document.getElementById('btn-dir-vi-tay');
+            const sourceSeal = document.getElementById('source-seal');
+            const targetSeal = document.getElementById('target-seal');
+            const sourceSub = document.getElementById('source-sub');
+            const sourceInput = document.getElementById('source-input');
+            const speakTargetText = document.getElementById('speak-target-text');
+
+            if (dir === 'tay-vi') {
+                btnTayVi.className = 'flex-1 sm:flex-initial px-4 py-2 rounded-sm text-xs sm:text-sm font-semibold transition flex items-center justify-center gap-2 bg-limWood-800 text-doPaper-50 shadow-2xs';
+                btnViTay.className = 'flex-1 sm:flex-initial px-4 py-2 rounded-sm text-xs sm:text-sm font-semibold transition flex items-center justify-center gap-2 text-ink-700 hover:bg-doPaper-50';
+
+                sourceSeal.innerText = 'TIẾNG TÀY';
+                sourceSeal.className = 'px-2.5 py-0.5 rounded-xs text-xs font-serif font-bold tracking-wider uppercase bg-limWood-800 text-doPaper-50 border border-antiqueGold-500/50';
+                sourceSub.innerText = 'Văn bản gốc cần chuyển ngữ';
+                sourceInput.placeholder = 'Nhập câu hoặc từ tiếng Tày tại đây... (Ví dụ: Pỉ nọng slưn đảy bấu? Khẩu ma lườn kin nặm!)';
+
+                targetSeal.innerText = 'TIẾNG VIỆT';
+              targetSeal.className = 'px-2.5 py-0.5 rounded-xs text-xs font-serif font-bold tracking-wider uppercase bg-vermilion-700 text-doPaper-50 border border-antiqueGold-400/50';
+                speakTargetText.innerText = 'Nghe đọc tiếng Việt';
+            } else {
+                btnViTay.className = 'flex-1 sm:flex-initial px-4 py-2 rounded-sm text-xs sm:text-sm font-semibold transition flex items-center justify-center gap-2 bg-limWood-800 text-doPaper-50 shadow-2xs';
+                btnTayVi.className = 'flex-1 sm:flex-initial px-4 py-2 rounded-sm text-xs sm:text-sm font-semibold transition flex items-center justify-center gap-2 text-ink-700 hover:bg-doPaper-50';
+
+                sourceSeal.innerText = 'TIẾNG VIỆT';
+                sourceSeal.className = 'px-2.5 py-0.5 rounded-xs text-xs font-serif font-bold tracking-wider uppercase bg-vermilion-700 text-doPaper-50 border border-antiqueGold-400/50';
+                sourceSub.innerText = 'Nhập lời tiếng Việt muốn dịch sang tiếng Tày';
+                sourceInput.placeholder = 'Nhập câu tiếng Việt cần dịch... (Ví dụ: Mời anh chị vào nhà uống chén nước chè xanh!)';
+
+                targetSeal.innerText = 'TIẾNG TÀY';
+                targetSeal.className = 'px-2.5 py-0.5 rounded-xs text-xs font-serif font-bold tracking-wider uppercase bg-limWood-800 text-doPaper-50 border border-antiqueGold-500/50';
+                speakTargetText.innerText = 'Nghe đọc mô phỏng tiếng Tày';
+            }
+        }
+
+        function swapDirection() {
+            const nextDir = direction === 'tay-vi' ? 'vi-tay' : 'tay-vi';
+            setDirection(nextDir);
+
+            const sourceInput = document.getElementById('source-input');
+            const targetOutput = document.getElementById('target-output');
+            const hasTranslated = !targetOutput.querySelector('.italic') && targetOutput.innerText.trim() !== '';
+
+            if (hasTranslated) {
+                const prevSource = sourceInput.value;
+                sourceInput.value = targetOutput.innerText.trim();
+                document.getElementById('char-count').innerText = `${sourceInput.value.length} / 1000`;
+                if (prevSource.trim()) {
+                    targetOutput.innerText = prevSource.trim();
+                } else {
+                    targetOutput.innerHTML = '<span class="text-ink-500/60 font-normal italic text-sm sm:text-base">Bản dịch chuẩn nghĩa sẽ hiện lên trang giấy này...</span>';
+                }
+            }
+        }
+      function tryQuickSample(sampleText) {
+            setDirection('tay-vi');
+            const inputEl = document.getElementById('source-input');
+            inputEl.value = sampleText;
+            document.getElementById('char-count').innerText = `${sampleText.length} / 1000`;
+            executeTranslate();
+        }
+
+        function renderCharBar() {
+            const bar = document.getElementById('tay-char-bar');
+            bar.innerHTML = tayCharacters.map(ch => {
+                const label = isUpperCase ? ch.charAt(0).toUpperCase() + ch.slice(1) : ch;
+                return `
+                    <button type="button" onclick="insertCharacter('${label}')" class="px-2.5 py-1 bg-doPaper-50 hover:bg-limWood-800 text-limWood-900 hover:text-doPaper-50 border border-limWood-800/30 rounded-xs text-xs font-semibold transition active:scale-95">
+                        ${label}
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function toggleKeyboardCase() {
+            isUpperCase = !isUpperCase;
+            renderCharBar();
+        }
+
+        function insertCharacter(char) {
+            const textarea = document.getElementById('source-input');
+            const start = textarea.selectionStart;
+            const end = textarea.selectionEnd;
+            const val = textarea.value;
+
+            textarea.value = val.substring(0, start) + char + val.substring(end);
+            textarea.focus();
+            textarea.selectionStart = textarea.selectionEnd = start + char.length;
+            document.getElementById('char-count').innerText = `${textarea.value.length} / 1000`;
+        }
+
+        function clearInput() {
+            document.getElementById('source-input').value = '';
+            document.getElementById('char-count').innerText = '0 / 1000';
+            document.getElementById('target-output').innerHTML = '<span class="text-ink-500/60 font-normal italic text-sm sm:text-base">Bản dịch chuẩn nghĩa sẽ hiện lên trang giấy này...</span>';
+            document.getElementById('pronunciation-box').classList.add('hidden');
+            document.getElementById('analysis-card').classList.add('hidden');
+            currentResultRecord = null;
+            updateSaveButtonUI(false);
+        }
+
+        async function pasteClipboard() {
+            try {
+                if (navigator.clipboard && navigator.clipboard.readText) {
+                    const text = await navigator.clipboard.readText();
+                    const textarea = document.getElementById('source-input');
+                    textarea.value = text.substring(0, 1000);
+                    document.getElementById('char-count').innerText = `${textarea.value.length} / 1000`;
+                    showToast('Đã dán văn bản lên trang giấy!', 'success');
+                } else {
+                    showToast('Vui lòng nhấn Ctrl+V để dán nội dung.', 'info');
+                }
+            } catch (e) {
+              showToast('Vui lòng nhấn Ctrl+V (hoặc chạm giữ -> Dán) vào ô nhập.', 'info');
+            }
+        }
+      // =========================================================================
+        // 4. GEMINI AI DỊCH THUẬT & CHÚ GIẢI CHUYÊN SÂU
+        // =========================================================================
+        async function fetchGeminiWithBackoff(payload, maxRetries = 4) {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${apiKey}`;
+            let delay = 1000;
+
+            for (let attempt = 0; attempt <= maxRetries; attempt++) {
+                try {
+                    const res = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                    return await res.json();
+                } catch (err) {
+                    if (attempt === maxRetries) throw err;
+                    await new Promise(r => setTimeout(r, delay));
+                    delay *= 2;
+                }
+            }
+        }
+
+        async function executeTranslate() {
+            const sourceText = document.getElementById('source-input').value.trim();
+            if (!sourceText) {
+                showToast('Xin mời nhập câu hoặc từ cần dịch trước!', 'warning');
+                return;
+            }
+
+            const dialect = document.getElementById('dialect-select').value;
+            const dialectPrompts = {
+                common: 'Tiếng Tày phổ thông vùng Việt Bắc (chuẩn chữ Quốc ngữ Tày)',
+                caobang: 'Phương ngữ Tiếng Tày Cao Bằng (âm sắc nhẹ nhàng, giữ nhiều từ cổ Hòa An, Trùng Khánh)',
+                langson: 'Phương ngữ Tiếng Tày Lạng Sơn (tương đồng Tày - Nùng xứ Lạng)',
+                backan_thainguyen: 'Phương ngữ Tiếng Tày Bắc Kạn - Thái Nguyên (vùng Ba Bể, Chợ Đồn, Định Hóa)',
+                tuyenquang_hagiang: 'Phương ngữ Tiếng Tày Tuyên Quang - Hà Giang'
+            };
+
+            const btn = document.getElementById('btn-translate');
+            const targetOutput = document.getElementById('target-output');
+
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin text-antiqueGold-400"></i> <span>Đang tra cứu...</span>`;
+            targetOutput.innerHTML = `<div class="flex items-center gap-2.5 text-ink-700 text-sm font-normal italic"><i class="fa-solid fa-feather-pointed fa-bounce text-vermilion-700"></i> Đang luận giải ngữ nghĩa & sắc thái văn hóa Tày...</div>`;
+
+            const isTayToVi = direction === 'tay-vi';
+
+            const systemPrompt = `Bạn là một học giả ngôn ngữ học và nhà nghiên cứu văn hóa dân gian dân tộc Tày vùng Việt Bắc.
+            Nhiệm vụ của bạn là dịch thuật chuẩn xác, trang trọng và mộc mạc giữa Tiếng Tày và Tiếng Việt, ưu tiên sắc thái phương ngữ: ${dialectPrompts[dialect]}.
+Yêu cầu cụ thể:
+1. Bản dịch chính phải truyền tải trọn vẹn ý nghĩa gốc, tự nhiên, đậm chất văn hóa ứng xử lễ nghĩa của người Tày. Khi viết tiếng Tày, dùng chữ Quốc ngữ Tày chuẩn (sl, kh, ph, th, nh, ng, pỉ, noọng, lườn, kin khẩu, pây tàng, slương, hặc, lai lai, bấu, đảy...).
+2. Cung cấp hướng dẫn phát âm / đọc gần đúng theo âm sắc người Tày cho câu tiếng Tày (dù nguồn hay đích là tiếng Tày).
+3. Bóc tách chi tiết từng từ / cụm từ tiếng Tày trong câu (Từ tiếng Tày - Từ loại - Nghĩa tiếng Việt).
+4. Viết ghi chú văn hóa & sắc thái giao tiếp súc tích, sâu sắc giải thích ngữ cảnh sử dụng trong đời sống bản làng.`;
+
+            const userQuery = isTayToVi
+                ? `Hãy dịch và giải nghĩa câu Tiếng Tày sau sang Tiếng Việt:\n"${sourceText}"`
+                : `Hãy dịch câu Tiếng Việt sau sang Tiếng Tày tự nhiên, chuẩn xác theo phương ngữ đã chọn và giải nghĩa:\n"${sourceText}"`;
+
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] },
+                generationConfig: {
+                    responseMimeType: "application/json",
+                    responseSchema: {
+                        type: "OBJECT",
+                        properties: {
+                            mainTranslation: {
+                                type: "STRING",
+                                description: "Bản dịch chính trang trọng, chuẩn nghĩa"
+                            },
+                            pronunciationGuide: {
+                                type: "STRING",
+                                description: "Hướng dẫn phát âm / đọc gần đúng theo âm sắc người Tày"
+                            },
+                            wordDetails: {
+                                type: "ARRAY",
+                                description: "Bảng bóc tách từng từ hoặc cụm từ tiếng Tày trong câu",
+                                items: {
+                                    type: "OBJECT",
+                                    properties: {
+                                        tayTerm: { type: "STRING", description: "Từ hoặc cụm từ tiếng Tày" },
+                                        partOfSpeech: { type: "STRING", description: "Từ loại (Danh từ, Động từ, Tính từ, Đại từ, Trợ từ...)" },
+                                        vietnameseMeaning: { type: "STRING", description: "Nghĩa tiếng Việt tương ứng" }
+                                    },
+                                  required: ["tayTerm", "partOfSpeech", "vietnameseMeaning"]
+                                }
+                            },
+                            culturalContext: {
+                                type: "STRING",
+                                description: "Ghi chú văn hóa & sắc thái giao tiếp trong đời sống bản làng người Tày"
+                            }
+                        },
+                        required: ["mainTranslation", "pronunciationGuide", "wordDetails", "culturalContext"]
+                    }
+                }
+            };
+
+            try {
+                const rawResponse = await fetchGeminiWithBackoff(payload);
+                const jsonString = rawResponse?.candidates?.[0]?.content?.parts?.[0]?.text;
+                if (!jsonString) throw new Error("Không nhận được dữ liệu.");
+
+                const result = JSON.parse(jsonString);
+              // Hiển thị bản dịch chính
+                targetOutput.innerText = result.mainTranslation;
+
+                // Hiển thị hướng dẫn phát âm
+                const pronBox = document.getElementById('pronunciation-box');
+                if (result.pronunciationGuide) {
+                    document.getElementById('pronunciation-text').innerText = result.pronunciationGuide;
+                    pronBox.classList.remove('hidden');
+                } else {
+                    pronBox.classList.add('hidden');
+                }
+
+                // Hiển thị bảng bóc tách từ vựng & ghi chú văn hóa
+                renderAnalysisSection(result);
+
+                // Lưu bản ghi hiện tại & cập nhật lịch sử
+                const record = {
+                    id: Date.now().toString(),
+                    direction,
+                    sourceText,
+                    targetText: result.mainTranslation,
+                    pronunciation: result.pronunciationGuide || '',
+                    wordDetails: result.wordDetails || [],
+                    culturalContext: result.culturalContext || '',
+                    timestamp: new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })
+                };
+
+                currentResultRecord = record;
+                saveToHistory(record);
+
+                const alreadySaved = savedItems.some(item => item.sourceText.toLowerCase() === sourceText.toLowerCase());
+                updateSaveButtonUI(alreadySaved);
+
+            } catch (err) {
+                targetOutput.innerHTML = `<span class="text-vermilion-700 text-sm font-medium"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Không thể kết nối hệ thống phiên dịch lúc này. Xin vui lòng thử lại sau giây lát.</span>`;
+                showToast('Lỗi kết nối dịch thuật. Vui lòng thử lại!', 'error');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<span>Dịch & Giải Nghĩa</span> <i class="fa-solid fa-stamp text-antiqueGold-400 text-xs"></i>`;
+            }
+        }
+
+        function renderAnalysisSection(data) {
+            const card = document.getElementById('analysis-card');
+            const tbody = document.getElementById('vocab-table-body');
+            const culturalEl = document.getElementById('cultural-note-content');
+
+            tbody.innerHTML = '';
+            if (data.wordDetails && data.wordDetails.length > 0) {
+                data.wordDetails.forEach(row => {
+                    const tr = document.createElement('tr');
+                    tr.className = 'hover:bg-doPaper-200/50 transition';
+                    tr.innerHTML = `
+                        <td class="py-2 px-3 font-bold text-limWood-900">${escapeHtml(row.tayTerm)}</td>
+                        <td class="py-2 px-3 text-ink-700 italic">${escapeHtml(row.partOfSpeech)}</td>
+                        <td class="py-2 px-3 text-ink-900 font-medium">${escapeHtml(row.vietnameseMeaning)}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            } else {
+                tbody.innerHTML = `<tr><td colspan="3" class="py-3 px-3 text-center text-ink-500 italic">Không có từ vựng bổ sung cần bóc tách.</td></tr>`;
+            }
+
+            culturalEl.innerText = data.culturalContext || 'Câu giao tiếp mộc mạc, gần gũi trong sinh hoạt đời thường của đồng bào Tày vùng Việt Bắc.';
+            card.classList.remove('hidden');
+        }
+      // =========================================================================
+        // 5. KHO TỪ VỰNG & SỔ TAY GIAO TIẾP DÂN GIAN
+        // =========================================================================
+        function renderTopicTabs() {
+            const container = document.getElementById('topic-tabs');
+            container.innerHTML = topics.map(t => {
+                const active = t.id === currentTopic;
+                return `
+                    <button onclick="selectTopic('${t.id}')" class="px-3.5 py-2 rounded-md text-xs sm:text-sm font-medium whitespace-nowrap transition flex items-center gap-2 border ${
+                        active
+                        ? 'bg-limWood-800 text-doPaper-50 border-limWood-900 shadow-2xs'
+                        : 'bg-doPaper-100 text-ink-900 hover:bg-doPaper-200 border-limWood-800/20'
+                    }">
+                        <i class="fa-solid ${t.icon} ${active ? 'text-antiqueGold-400' : 'text-vermilion-700'}"></i>
+                        <span>${t.name}</span>
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function selectTopic(topicId) {
+            currentTopic = topicId;
+            renderTopicTabs();
+            renderDictionary();
+        }
+
+        function filterDictionary() {
+            const val = document.getElementById('dict-search').value;
+            const clearBtn = document.getElementById('btn-clear-search');
+            if (val.length > 0) {
+                clearBtn.classList.remove('hidden');
+            } else {
+                clearBtn.classList.add('hidden');
+            }
+            renderDictionary();
+        }
+
+        function resetDictSearch() {
+            document.getElementById('dict-search').value = '';
+            document.getElementById('btn-clear-search').classList.add('hidden');
+            renderDictionary();
+        }
+      function renderDictionary() {
+            const query = document.getElementById('dict-search').value.toLowerCase().trim();
+            const grid = document.getElementById('dictionary-grid');
+
+            const filtered = folkDictionary.filter(item => {
+                const matchTopic = currentTopic === 'all' || item.topic === currentTopic;
+                const matchQuery = !query ||
+                    item.tay.toLowerCase().includes(query) ||
+                    item.vi.toLowerCase().includes(query) ||
+                    item.note.toLowerCase().includes(query);
+                return matchTopic && matchQuery;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full py-10 text-center bg-doPaper-100/70 rounded-md border border-dashed border-limWood-800/30 text-ink-700">
+                        <i class="fa-solid fa-scroll text-2xl mb-2 text-antiqueGold-600"></i>
+                        <p class="text-sm">Chưa tìm thấy mục từ nào khớp với "<strong>${escapeHtml(query)}</strong>" trong sổ tay.</p>
+                        <button onclick="translateFromSearch('${escapeJs(query)}')" class="mt-3 seal-btn px-4 py-2 rounded-md text-doPaper-50 text-xs font-serif font-bold">
+                            Dùng AI dịch ngay cụm từ này <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(item => {
+                const topicInfo = topics.find(tp => tp.id === item.topic);
+                return `
+                    <div class="bg-doPaper-100/80 hover:bg-doPaper-50 rounded-md p-4 border border-limWood-800/25 hover:border-antiqueGold-600 shadow-2xs hover:shadow-md transition flex flex-col justify-between group">
+                        <div>
+                            <!-- Nhãn chủ đề & Nút thao tác -->
+                            <div class="flex items-center justify-between gap-2 mb-2.5">
+                                <span class="text-[11px] font-semibold px-2 py-0.5 rounded-xs bg-doPaper-200 text-limWood-900 border border-limWood-800/15">
+                                    ${topicInfo ? topicInfo.name : item.pos}
+                                </span>
+                                <div class="flex items-center gap-1.5">
+                                    <button onclick="speakPlainText('${escapeJs(item.tay)}', 'tay', this)" title="Nghe đọc tiếng Tày" class="w-7 h-7 rounded-sm bg-doPaper-50 hover:bg-vermilion-700 text-limWood-900 hover:text-doPaper-50 border border-limWood-800/25 flex items-center justify-center transition">
+                                        <i class="fa-solid fa-volume-high text-[11px]"></i>
+                                    </button>
+                                    <button onclick="loadDictItemToTranslator('${item.id}')" title="Đưa lên trang dịch phân tích" class="w-7 h-7 rounded-sm bg-limWood-800 hover:bg-antiqueGold-600 text-doPaper-50 flex items-center justify-center transition">
+                                        <i class="fa-solid fa-arrow-up-right-from-square text-[11px]"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Câu tiếng Tày -->
+                            <h3 class="font-serif font-bold text-limWood-900 text-lg group-hover:text-vermilion-700 transition">${escapeHtml(item.tay)}</h3>
+                            <p class="text-xs text-antiqueGold-700 italic mb-2">Phát âm: ${escapeHtml(item.phonetic)}</p>
+
+                            <!-- Nghĩa tiếng Việt -->
+                            <div class="pt-2 border-t border-limWood-800/15">
+                                <p class="text-sm font-semibold text-ink-900">${escapeHtml(item.vi)}</p>
+                            </div>
+                        </div>
+                        <!-- Chú giải văn hóa -->
+                        <div class="mt-3 pt-2 border-t border-dashed border-limWood-800/20 text-[11px] text-ink-700 flex items-start gap-1.5">
+                            <i class="fa-solid fa-feather-pointed text-antiqueGold-600 mt-0.5 flex-shrink-0"></i>
+                            <span>${escapeHtml(item.note)}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function loadDictItemToTranslator(id) {
+            const item = folkDictionary.find(d => d.id === id);
+            if (!item) return;
+
+            setDirection('tay-vi');
+            const inputEl = document.getElementById('source-input');
+            inputEl.value = item.tay;
+            document.getElementById('char-count').innerText = `${item.tay.length} / 1000`;
+
+            document.getElementById('target-output').innerText = item.vi;
+            document.getElementById('pronunciation-text').innerText = item.phonetic;
+            document.getElementById('pronunciation-box').classList.remove('hidden');
+
+            renderAnalysisSection({
+                wordDetails: [
+                    { tayTerm: item.tay, partOfSpeech: item.pos, vietnameseMeaning: item.vi }
+                ],
+                culturalContext: item.note
+            });
+
+            currentResultRecord = {
+                id: Date.now().toString(),
+                direction: 'tay-vi',
+                sourceText: item.tay,
+                targetText: item.vi,
+                pronunciation: item.phonetic,
+                wordDetails: [{ tayTerm: item.tay, partOfSpeech: item.pos, vietnameseMeaning: item.vi }],
+                culturalContext: item.note,
+                timestamp: new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })
+            };
+
+            const isSaved = savedItems.some(s => s.sourceText.toLowerCase() === item.tay.toLowerCase());
+            updateSaveButtonUI(isSaved);
+
+            scrollToId('translator-section');
+            showToast('Đã đưa mẫu câu lên trang dịch!', 'success');
+        }
+
+        function translateFromSearch(text) {
+            document.getElementById('source-input').value = text;
+            document.getElementById('char-count').innerText = `${text.length} / 1000`;
+            scrollToId('translator-section');
+            executeTranslate();
+        }
+      // =========================================================================
+        // 6. PHÁT ÂM (WEB SPEECH API) & SAO CHÉP KẾT QUẢ
+        // =========================================================================
+        function speakSource(btn) {
+            const text = document.getElementById('source-input').value.trim();
+            if (!text) {
+                showToast('Chưa có văn bản để đọc!', 'warning');
+                return;
+            }
+            speakPlainText(text, direction === 'tay-vi' ? 'tay' : 'vi', btn);
+        }
+
+        function speakTarget(btn) {
+            const targetEl = document.getElementById('target-output');
+            const text = targetEl.innerText.trim();
+            if (!text || targetEl.querySelector('.italic')) {
+                showToast('Chưa có bản dịch để đọc!', 'warning');
+                return;
+            }
+            speakPlainText(text, direction === 'tay-vi' ? 'vi' : 'tay', btn);
+        }
+
+        function speakPlainText(text, langType, btn) {
+            if (!('speechSynthesis' in window)) {
+                showToast('Trình duyệt không hỗ trợ đọc âm thanh.', 'error');
+                return;
+            }
+            window.speechSynthesis.cancel();
+            const utter = new SpeechSynthesisUtterance(text);
+            utter.lang = 'vi-VN';
+            utter.rate = langType === 'tay' ? 0.85 : 1.0;
+
+            if (btn) btn.classList.add('speaking-active');
+            utter.onend = () => { if (btn) btn.classList.remove('speaking-active'); };
+            utter.onerror = () => { if (btn) btn.classList.remove('speaking-active'); };
+
+            window.speechSynthesis.speak(utter);
+        }
+
+        function copyResult() {
+            const targetEl = document.getElementById('target-output');
+            const text = targetEl.innerText.trim();
+            if (!text || targetEl.querySelector('.italic')) {
+                showToast('Chưa có kết quả dịch để sao chép!', 'warning');
+                return;
+            }
+          // Sử dụng document.execCommand('copy') tương thích mọi môi trường iFrame
+            const temp = document.createElement('textarea');
+            temp.value = text;
+            temp.style.position = 'fixed';
+            temp.style.opacity = '0';
+            document.body.appendChild(temp);
+            temp.select();
+            try {
+                document.execCommand('copy');
+                showToast('Đã sao chép bản dịch vào bộ nhớ tạm!', 'success');
+            } catch (e) {
+                showToast('Không thể sao chép văn bản.', 'error');
+            }
+            document.body.removeChild(temp);
+        }
+
+        // =========================================================================
+        // 7. QUẢN LÝ SỔ TAY ĐÃ LƯU & LỊCH SỬ TRA CỨU
+        // =========================================================================
+        function saveToHistory(record) {
+            if (historyItems.length > 0 && historyItems[0].sourceText === record.sourceText && historyItems[0].direction === record.direction) {
+                historyItems[0] = record;
+            } else {
+                historyItems.unshift(record);
+                if (historyItems.length > 40) historyItems.pop();
+            }
+            localStorage.setItem('tay_viet_classic_history', JSON.stringify(historyItems));
+            updateBadges();
+        }
+
+        function toggleSaveFavorite() {
+            if (!currentResultRecord) {
+                showToast('Hãy dịch một câu trước khi lưu vào sổ tay!', 'warning');
+                return;
+            }
+
+            const idx = savedItems.findIndex(item => item.sourceText.toLowerCase() === currentResultRecord.sourceText.toLowerCase());
+            if (idx > -1) {
+                savedItems.splice(idx, 1);
+                updateSaveButtonUI(false);
+                showToast('Đã gỡ khỏi Sổ tay đã lưu.', 'info');
+            } else {
+                savedItems.unshift({ ...currentResultRecord, savedDate: new Date().toLocaleDateString('vi-VN') });
+                updateSaveButtonUI(true);
+                showToast('Đã lưu câu giao tiếp vào Sổ tay!', 'success');
+            }
+
+            localStorage.setItem('tay_viet_classic_saved', JSON.stringify(savedItems));
+            updateBadges();
+        }
+      function updateSaveButtonUI(isSaved) {
+            const btn = document.getElementById('btn-save-fav');
+            if (isSaved) {
+                btn.innerHTML = `<i class="fa-solid fa-bookmark text-vermilion-700"></i> <span class="text-vermilion-700 font-bold">Đã lưu</span>`;
+            } else {
+                btn.innerHTML = `<i class="fa-regular fa-bookmark text-vermilion-700"></i> <span>Lưu sổ tay</span>`;
+            }
+        }
+
+        function updateBadges() {
+            document.getElementById('saved-badge').innerText = savedItems.length;
+            document.getElementById('drawer-saved-count').innerText = savedItems.length;
+            document.getElementById('drawer-history-count').innerText = historyItems.length;
+        }
+
+        function openDrawer(tab = 'saved') {
+            const drawer = document.getElementById('side-drawer');
+            const backdrop = document.getElementById('drawer-backdrop');
+            drawer.classList.remove('translate-x-full');
+            backdrop.classList.remove('hidden');
+            switchDrawerTab(tab);
+        }
+
+        function closeDrawer() {
+            document.getElementById('side-drawer').classList.add('translate-x-full');
+            document.getElementById('drawer-backdrop').classList.add('hidden');
+        }
+
+        function switchDrawerTab(tab) {
+            activeDrawerTab = tab;
+            const tabSaved = document.getElementById('tab-saved');
+            const tabHistory = document.getElementById('tab-history');
+            const desc = document.getElementById('drawer-desc');
+
+            if (tab === 'saved') {
+                tabSaved.className = 'px-3 py-1.5 rounded-sm text-xs sm:text-sm font-serif font-bold bg-vermilion-700 text-doPaper-50 border border-antiqueGold-400/50 transition flex items-center gap-1.5';
+                tabHistory.className = 'px-3 py-1.5 rounded-sm text-xs sm:text-sm font-serif font-bold text-doPaper-300 hover:bg-limWood-800 transition flex items-center gap-1.5';
+                desc.innerText = 'Các câu giao tiếp bạn đã lưu để ôn tập';
+            } else {
+                tabHistory.className = 'px-3 py-1.5 rounded-sm text-xs sm:text-sm font-serif font-bold bg-vermilion-700 text-doPaper-50 border border-antiqueGold-400/50 transition flex items-center gap-1.5';
+                tabSaved.className = 'px-3 py-1.5 rounded-sm text-xs sm:text-sm font-serif font-bold text-doPaper-300 hover:bg-limWood-800 transition flex items-center gap-1.5';
+                desc.innerText = 'Lịch sử các câu bạn đã tra cứu gần đây';
+            }
+
+            renderDrawerContent();
+        }
+
+        function renderDrawerContent() {
+            const container = document.getElementById('drawer-content');
+            const list = activeDrawerTab === 'saved' ? savedItems : historyItems;
+
+            if (list.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-14 text-ink-500">
+                    <i class="fa-solid ${activeDrawerTab === 'saved' ? 'fa-bookmark' : 'fa-scroll'} text-3xl mb-2.5 text-antiqueGold-600/60"></i>
+                        <p class="text-sm italic">${activeDrawerTab === 'saved' ? 'Chưa có câu nào được lưu trong sổ tay.' : 'Chưa có lịch sử tra cứu.'}</p>
+                    </div>
+                `;
+                return;
+            }
+          container.innerHTML = list.map((item, idx) => `
+                <div class="bg-doPaper-50 rounded-md p-3.5 border border-limWood-800/25 hover:border-antiqueGold-600 shadow-2xs transition space-y-2">
+                    <div class="flex items-center justify-between text-[11px] text-ink-700">
+                        <span class="font-bold text-limWood-800">
+                            ${item.direction === 'tay-vi' ? 'Tiếng Tày → Tiếng Việt' : 'Tiếng Việt → Tiếng Tày'}
+                        </span>
+                        <div class="flex items-center gap-2">
+                            <span>${item.savedDate || item.timestamp || ''}</span>
+                            <button onclick="removeDrawerItem(${idx})" class="text-ink-500 hover:text-vermilion-700" title="Xóa mục này">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <p class="text-sm font-serif font-bold text-limWood-900">${escapeHtml(item.sourceText)}</p>
+                    <p class="text-sm font-medium text-vermilion-700 pt-1 border-t border-limWood-800/15">${escapeHtml(item.targetText)}</p>
+
+                    <div class="pt-1 flex items-center justify-between">
+                        <button onclick="speakPlainText('${escapeJs(item.direction === 'tay-vi' ? item.sourceText : item.targetText)}', 'tay', this)" class="text-xs text-ink-700 hover:text-limWood-900 flex items-center gap-1 font-medium">
+                            <i class="fa-solid fa-volume-high text-vermilion-700"></i> Nghe tiếng Tày
+                        </button>
+                        <button onclick="restoreFromDrawer(${idx})" class="text-xs font-bold text-limWood-800 hover:text-vermilion-700 flex items-center gap-1">
+                            <i class="fa-solid fa-rotate-left"></i> Mở lại trang dịch
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function removeDrawerItem(index) {
+            if (activeDrawerTab === 'saved') {
+                savedItems.splice(index, 1);
+                localStorage.setItem('tay_viet_classic_saved', JSON.stringify(savedItems));
+            } else {
+                historyItems.splice(index, 1);
+                localStorage.setItem('tay_viet_classic_history', JSON.stringify(historyItems));
+            }
+            updateBadges();
+            renderDrawerContent();
+        }
+
+        function clearActiveDrawerList() {
+            if (activeDrawerTab === 'saved') {
+                savedItems = [];
+                localStorage.removeItem('tay_viet_classic_saved');
+                updateSaveButtonUI(false);
+            } else {
+                historyItems = [];
+                localStorage.removeItem('tay_viet_classic_history');
+            }
+            updateBadges();
+            renderDrawerContent();
+          showToast('Đã dọn sạch danh sách.', 'success');
+        }
+
+        function restoreFromDrawer(index) {
+            const list = activeDrawerTab === 'saved' ? savedItems : historyItems;
+            const item = list[index];
+            if (!item) return;
+
+            setDirection(item.direction);
+            document.getElementById('source-input').value = item.sourceText;
+            document.getElementById('char-count').innerText = `${item.sourceText.length} / 1000`;
+            document.getElementById('target-output').innerText = item.targetText;
+
+            if (item.pronunciation) {
+                document.getElementById('pronunciation-text').innerText = item.pronunciation;
+                document.getElementById('pronunciation-box').classList.remove('hidden');
+            } else {
+                document.getElementById('pronunciation-box').classList.add('hidden');
+            }
+
+            if (item.culturalContext || (item.wordDetails && item.wordDetails.length)) {
+                renderAnalysisSection({
+                    wordDetails: item.wordDetails || [],
+                    culturalContext: item.culturalContext || ''
+                });
+            }
+
+            currentResultRecord = item;
+            const isSaved = savedItems.some(s => s.sourceText.toLowerCase() === item.sourceText.toLowerCase());
+            updateSaveButtonUI(isSaved);
+
+            closeDrawer();
+            scrollToId('translator-section');
+        }
+      // =========================================================================
+        // 8. TIỆN ÍCH CHUNG (SCROLL, TOAST, ESCAPE)
+        // =========================================================================
+        function scrollToId(id) {
+            document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+
+            const styles = {
+                success: 'bg-limWood-900 text-doPaper-50 border-antiqueGold-500',
+                warning: 'bg-limWood-800 text-doPaper-50 border-vermilion-600',
+                error: 'bg-vermilion-800 text-doPaper-50 border-antiqueGold-400',
+                info: 'bg-limWood-800 text-doPaper-100 border-antiqueGold-600'
+            };
+
+            const icons = {
+                success: 'fa-circle-check text-antiqueGold-400',
+                warning: 'fa-triangle-exclamation text-antiqueGold-400',
+                error: 'fa-circle-xmark text-doPaper-200',
+                info: 'fa-feather-pointed text-antiqueGold-400'
+            };
+
+            toast.className = `pointer-events-auto flex items-center gap-2.5 px-4 py-3 rounded-md shadow-lg border-l-4 border border-limWood-700 text-xs sm:text-sm font-medium transform transition-all duration-300 translate-y-2 opacity-0 ${styles[type]}`;
+            toast.innerHTML = `<i class="fa-solid ${icons[type]}"></i> <span>${escapeHtml(message)}</span>`;
+
+            container.appendChild(toast);
+            requestAnimationFrame(() => {
+                toast.classList.remove('translate-y-2', 'opacity-0');
+            });
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-2');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        function escapeJs(str) {
+            if (!str) return '';
+            return String(str).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+        }
+    </script>
+</body>
+</html>
